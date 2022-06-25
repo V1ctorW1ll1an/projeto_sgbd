@@ -13,7 +13,8 @@ class Comercio
     {
         $clientes = 'SELECT * FROM cliente';
         $q = $this->mysql->query($clientes);
-        return $q->fetch_all(MYSQLI_ASSOC);
+        $resposta =  $q->fetch_all(MYSQLI_ASSOC);
+        return $resposta;
     }
 
     public function listar_vendas(): array

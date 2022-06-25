@@ -29,3 +29,5 @@ create table vendas(
 	data date,
 	foreign key (codigo_cliente) references cliente(codigo) 
 );
+
+INSERT INTO `cliente` (`codigo`, `primeiro_nome`, `segundo_nome`, `data_nascimento`, `rg`, `fone`, `cep`, `cidade`, `endereco`, `cpf`) VALUES (NULL, 'victor', 'willian', '1998-12-10', '49.690.063-8', '319987283721', '69151-587', 'ipatinga', 'cidade nobre n 30', '456.169.150-25');
