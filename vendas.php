@@ -39,7 +39,7 @@ $vendas = $comercio->listar_vendas();
                             <td> R$ <?= $venda["valor_total"] ?> </td>
                             <td> <?= $venda["data"] ?> </td>
                             <td>
-                                <a class="mr-2 has-text-success" href="editar_venda.php?id_venda=<?= $venda["codigo"] ?>">
+                                <a class="mr-2 has-text-success" href="editar_venda.php?id_venda=<?= $venda["codigo"] ?>&id_cliente=<?= $venda['codigo_cliente'] ?>">
                                     Editar
                                 </a>
                                 <a class="ml-2 has-text-danger" href="excluir_venda.php?id_venda=<?= $venda["codigo"] ?>">

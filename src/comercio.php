@@ -99,19 +99,25 @@ class Comercio
         $q->execute();
     }
 
-    public function atualizar_venda(int $id_cliente, float $valor_parcial, float $valor_desconto, float $valor_acrescimo)
+    public function atualizar_venda(int $id_venda, int $id_cliente, float $valor_parcial, float $valor_desconto, float $valor_acrescimo)
     {
         $valor_total = $valor_parcial - $valor_desconto + $valor_acrescimo;
 
-        echo "id cliente: $id_cliente <br>";
-        echo "valor parcial: $valor_parcial <br>";
-        echo "valor desconto: $valor_desconto <br>";
-        echo "valor acrescimo: $valor_acrescimo <br>";
-        echo "valor total: $valor_total <br>";
+        $q = $this->mysql->prepare("UPDATE vendas SET codigo_cliente=?, valor_parcial=?, valor_desconto=?, valor_acrescimo=?, valor_total=? WHERE codigo=?");
 
-        $q = $this->mysql->prepare("INSERT INTO vendas (codigo_cliente, valor_parcial, valor_desconto, valor_acrescimo,valor_total, data) VALUES (?,?,?,?,?, NOW())");
-
-        $q->bind_param('idddd', $id_cliente, $valor_parcial, $valor_desconto, $valor_acrescimo, $valor_total);
+        $q->bind_param('iddddi', $id_cliente, $valor_parcial, $valor_desconto, $valor_acrescimo, $valor_total, $id_venda);
         $q->execute();
+    }
+
+    public function pegar_venda_por_id($id_venda)
+    {
+        $q = $this->mysql->prepare("SELECT * FROM vendas WHERE codigo=?");
+        $q->bind_param('s', $id_venda);
+
+        $q->execute();
+
+        $venda = $q->get_result()->fetch_assoc();
+
+        return $venda;
     }
 }
