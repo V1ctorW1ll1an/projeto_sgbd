@@ -8,9 +8,18 @@ $comercio = new Comercio($mysql);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_cliente = $_POST['id_cliente'];
 
-    $comercio->excluir_cliente($id_cliente);
+    $r = $comercio->excluir_cliente($id_cliente);
 
-    redirecionar('/index.php');
+    if ($r) {
+        redirecionar('/index.php');
+    } else {
+        echo '
+        <div class="mt-5 mb-5 container notification is-danger">
+            <button class="delete"></button>
+            Não é possivel excluir um cliente que está ligado a uma venda!
+        </div>
+        ';
+    }
 } else {
     $id_cliente = $_GET['id_cliente'];
 }
@@ -31,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </section>
 
+    <script src="./delete.js"></script>
 </body>
 
 </html>

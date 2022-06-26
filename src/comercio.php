@@ -52,11 +52,21 @@ class Comercio
         $q->execute();
     }
 
-    public function excluir_cliente($id_cliente)
+    public function excluir_cliente($id_cliente): bool
     {
+        $venda = $this->mysql->prepare("SELECT * FROM vendas WHERE codigo_cliente = ?");
+        $venda->bind_param('s', $id_cliente);
+        $venda->execute();
+        $resultado = $venda->get_result()->fetch_assoc();
+
+
+        if ($resultado) {
+            return false;
+        }
         $q = $this->mysql->prepare("DELETE FROM cliente WHERE codigo=?");
         $q->bind_param('s', $id_cliente);
         $q->execute();
+        return true;
     }
     public function pegarCliente($id_cliente)
     {
