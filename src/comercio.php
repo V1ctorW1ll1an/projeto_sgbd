@@ -19,22 +19,16 @@ class Comercio
 
     public function listar_vendas(): array
     {
-        $vendas = 'SELECT *, cliente.primeiro_nome FROM vendas, cliente where vendas.codigo_cliente = cliente.codigo;';
+        $vendas = 'SELECT vendas.*, cliente.primeiro_nome FROM vendas, cliente where vendas.codigo_cliente = cliente.codigo;';
         $q = $this->mysql->query($vendas);
         $resultados = $q->fetch_all(MYSQLI_ASSOC);
         return $resultados;
     }
 
-    public function add_venda($id_cliente, $valor_parcial, $valor_desconto, $valor_acrescimo)
+    public function add_venda(int $id_cliente, float $valor_parcial, float $valor_desconto, float $valor_acrescimo)
     {
         $valor_total = $valor_parcial - $valor_desconto + $valor_acrescimo;
-        if (!$id_cliente || !$valor_parcial || !$valor_desconto || !$valor_acrescimo) {
-            echo "Preencha todos os campos corretamente!";
-        }
-
-        // INSERT INTO `vendas` (`codigo`, `codigo_cliente`, `valor_parcial`, `valor_desconto`, `valor_acrescimo`, `valor_total`, `data`) VALUES (NULL, '1', '10.00', '5.00', '2.00', '7.00', '2022-06-26');
-        $q = $this->mysql->prepare("INSERT INTO vendas (codigo_cliente, valor_parcial, valor_desconto, valor_acrescimo,valorTotal, data) VALUES (?,?,?,?,?, NOW())");
-
+        $q = $this->mysql->prepare("INSERT INTO vendas (codigo_cliente, valor_parcial, valor_desconto, valor_acrescimo,valor_total, data) VALUES (?,?,?,?,?, NOW())");
         $q->bind_param('idddd', $id_cliente, $valor_parcial, $valor_desconto, $valor_acrescimo, $valor_total);
         $q->execute();
     }
@@ -61,7 +55,7 @@ class Comercio
     public function excluir_cliente($id_cliente)
     {
         $q = $this->mysql->prepare("DELETE FROM cliente WHERE codigo=?");
-        $q->bind_param('d', $id_cliente);
+        $q->bind_param('s', $id_cliente);
         $q->execute();
     }
     public function pegarCliente($id_cliente)
@@ -94,7 +88,30 @@ class Comercio
             echo "Error ao atualizar cliente";
             return;
         }
-        $q->bind_param('sssssssssd', $primeiro_nome, $segundo_nome, $data_nascimento, $cpf, $rg, $endereco, $cep, $cidade, $telefone, $id_cliente);
+        $q->bind_param('sssssssssi', $primeiro_nome, $segundo_nome, $data_nascimento, $cpf, $rg, $endereco, $cep, $cidade, $telefone, $id_cliente);
+        $q->execute();
+    }
+
+    public function excluir_venda($id_venda)
+    {
+        $q = $this->mysql->prepare("DELETE FROM vendas WHERE codigo=?");
+        $q->bind_param('s', $id_venda);
+        $q->execute();
+    }
+
+    public function atualizar_venda(int $id_cliente, float $valor_parcial, float $valor_desconto, float $valor_acrescimo)
+    {
+        $valor_total = $valor_parcial - $valor_desconto + $valor_acrescimo;
+
+        echo "id cliente: $id_cliente <br>";
+        echo "valor parcial: $valor_parcial <br>";
+        echo "valor desconto: $valor_desconto <br>";
+        echo "valor acrescimo: $valor_acrescimo <br>";
+        echo "valor total: $valor_total <br>";
+
+        $q = $this->mysql->prepare("INSERT INTO vendas (codigo_cliente, valor_parcial, valor_desconto, valor_acrescimo,valor_total, data) VALUES (?,?,?,?,?, NOW())");
+
+        $q->bind_param('idddd', $id_cliente, $valor_parcial, $valor_desconto, $valor_acrescimo, $valor_total);
         $q->execute();
     }
 }
