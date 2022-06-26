@@ -19,9 +19,10 @@ class Comercio
 
     public function listar_vendas(): array
     {
-        $vendas = 'SELECT * FROM vendas';
+        $vendas = 'SELECT *, cliente.primeiro_nome FROM vendas, cliente where vendas.codigo_cliente = cliente.codigo;';
         $q = $this->mysql->query($vendas);
-        return $q->fetch_all(MYSQLI_ASSOC);
+        $resultados = $q->fetch_all(MYSQLI_ASSOC);
+        return $resultados;
     }
 
     public function add_venda($id_cliente, $valor_parcial, $valor_desconto, $valor_acrescimo)
@@ -30,6 +31,8 @@ class Comercio
         if (!$id_cliente || !$valor_parcial || !$valor_desconto || !$valor_acrescimo) {
             echo "Preencha todos os campos corretamente!";
         }
+
+        // INSERT INTO `vendas` (`codigo`, `codigo_cliente`, `valor_parcial`, `valor_desconto`, `valor_acrescimo`, `valor_total`, `data`) VALUES (NULL, '1', '10.00', '5.00', '2.00', '7.00', '2022-06-26');
         $q = $this->mysql->prepare("INSERT INTO vendas (codigo_cliente, valor_parcial, valor_desconto, valor_acrescimo,valorTotal, data) VALUES (?,?,?,?,?, NOW())");
 
         $q->bind_param('idddd', $id_cliente, $valor_parcial, $valor_desconto, $valor_acrescimo, $valor_total);
