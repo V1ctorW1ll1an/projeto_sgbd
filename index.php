@@ -12,7 +12,7 @@ require 'src/config.php';
     <?php require("src/navbar.php"); ?>
 
     <main>
-        <?php require('./src/clientes.php'); ?>
+        <?php require('clientes.php'); ?>
     </main>
 </body>
 

@@ -36,23 +36,22 @@ class Comercio
         $q->execute();
     }
 
-    // public function addClient(
-    //     string $primeiroNome,
-    //     string $segundoNome,
-    //     string $dataNasci,
-    //     string $cpf,
-    //     string $rg,
-    //     string $endereco,
-    //     string $cep,
-    //     string $cidade,
-    //     string $fone
-    // ) {
-    //     $addClient = $this->mysql->prepare("INSERT INTO 
-    //     client (primeiroNome, segundoNome, dataNasci, cpf, rg, endereco, cep, cidade, fone)
-    //     VALUES (?,?,?,?,?,?,?,?,?,?)");
+    public function cadastrar_cliente(
+        string $primeiro_nome,
+        string $segundo_nome,
+        string $data_nascimento,
+        string $cpf,
+        string $rg,
+        string $endereco,
+        string $cep,
+        string $cidade,
+        string $telefone
+    ) {
 
-    //     $addClient->bind_param('ssssssssss', $primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
+        $q = $this->mysql->prepare("INSERT INTO cliente (primeiro_nome, segundo_nome, data_nascimento, rg, fone, cep, cidade, endereco, cpf) VALUES (?,?,?,?,?,?,?,?,?)");
 
-    //     $addClient->execute();
-    // }
+        $q->bind_param('sssssssss', $primeiro_nome, $segundo_nome, $data_nascimento, $rg, $telefone, $cep, $cidade, $endereco, $cpf);
+
+        $q->execute();
+    }
 }

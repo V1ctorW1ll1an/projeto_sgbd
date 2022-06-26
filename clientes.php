@@ -1,6 +1,6 @@
 <?php
-require 'config.php';
-include 'comercio.php';
+require 'src/config.php';
+include 'src/comercio.php';
 
 $comercio = new Comercio($mysql);
 $clientes = $comercio->listar_clientes();
@@ -23,8 +23,8 @@ $clientes = $comercio->listar_clientes();
 // }
 
 ?>
-<section>
-    <table class="table">
+<section class="container mt-5">
+    <table class="table is-bordered">
         <thead>
             <tr>
                 <th><abbr title="Código">Cod</abbr></th>
@@ -37,6 +37,7 @@ $clientes = $comercio->listar_clientes();
                 <th><abbr title="Cidade">Cid</abbr></th>
                 <th><abbr title="Endereco">End</abbr></th>
                 <th><abbr title="Cpf">Cpf</abbr></th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -52,8 +53,22 @@ $clientes = $comercio->listar_clientes();
                     <td> <?= $cliente["cidade"] ?> </td>
                     <td> <?= $cliente["endereco"] ?> </td>
                     <td> <?= $cliente["cpf"] ?> </td>
+                    <td>
+                        <a class="mr-2 has-text-success" href="">
+                            Editar
+                        </a>
+                        <a class="ml-2 has-text-danger" href="">
+                            Excluir
+                        </a>
+                    </td>
                 </tr>
             <?php endforeach ?>
         </tbody>
     </table>
+</section>
+
+<section class="container mt-5">
+    <a class="button is-success is-light" href="add_cliente.php">
+        Cadastrar cliente
+    </a>
 </section>
