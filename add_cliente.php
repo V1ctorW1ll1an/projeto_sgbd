@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <?php require("src/navbar.php") ?>
 
-    <form class="container mt-5 pt-5" method="post">
+    <form class="container mt-5 pt-5" method="post" action="add_cliente.php">
         <div class="mb-3">
             <input class="input" type="text" placeholder="Primeiro nome" name="primeiro_nome">
         </div>

@@ -54,4 +54,11 @@ class Comercio
 
         $q->execute();
     }
+
+    public function excluir_cliente($id_cliente)
+    {
+        $q = $this->mysql->prepare("DELETE FROM cliente WHERE codigo=?");
+        $q->bind_param('d', $id_cliente);
+        $q->execute();
+    }
 }
