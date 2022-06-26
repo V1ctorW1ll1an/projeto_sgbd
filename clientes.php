@@ -5,23 +5,6 @@ include 'src/comercio.php';
 $comercio = new Comercio($mysql);
 $clientes = $comercio->listar_clientes();
 
-// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-//     $primeiroNome = $_POST['primeiroNome'];
-//     $segundoNome = $_POST['segundoNome'];
-//     $dataNasci = $_POST['dataNasci'];
-//     $cpf = $_POST['cpf'];
-//     $rg = $_POST['rg'];
-//     $endereco = $_POST['endereco'];
-//     $cep = $_POST['cep'];
-//     $cidade = $_POST['cidade'];
-//     $fone = $_POST['fone'];
-
-//     $store = new Store($mysql);
-//     $store->addClient($primeiroNome, $segundoNome, $dataNasci, $cpf, $rg, $endereco, $cep, $cidade, $fone);
-
-//     $store->redirect('index.php');
-// }
-
 ?>
 <section class="container mt-5">
     <table class="table is-bordered">
