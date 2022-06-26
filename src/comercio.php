@@ -61,4 +61,37 @@ class Comercio
         $q->bind_param('d', $id_cliente);
         $q->execute();
     }
+    public function pegarCliente($id_cliente)
+    {
+        $q = $this->mysql->prepare("SELECT * FROM cliente WHERE codigo=?");
+        $q->bind_param('s', $id_cliente);
+
+        $q->execute();
+
+        $cliente = $q->get_result()->fetch_assoc();
+
+        return $cliente;
+    }
+    public function atualizar_cliente(
+        int $id_cliente,
+        string $primeiro_nome,
+        string $segundo_nome,
+        string $data_nascimento,
+        string $cpf,
+        string $rg,
+        string $endereco,
+        string $cep,
+        string $cidade,
+        string $telefone
+    ) {
+
+        $q = $this->mysql->prepare("UPDATE cliente SET primeiro_nome=?, segundo_nome=?, data_nascimento=?, cpf=?, rg=?, endereco=?, cep=?, cidade=?, fone=? WHERE codigo=?");
+
+        if ($q === false) {
+            echo "Error ao atualizar cliente";
+            return;
+        }
+        $q->bind_param('sssssssssd', $primeiro_nome, $segundo_nome, $data_nascimento, $cpf, $rg, $endereco, $cep, $cidade, $telefone, $id_cliente);
+        $q->execute();
+    }
 }

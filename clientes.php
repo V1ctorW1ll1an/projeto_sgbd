@@ -54,7 +54,7 @@ $clientes = $comercio->listar_clientes();
                     <td> <?= $cliente["endereco"] ?> </td>
                     <td> <?= $cliente["cpf"] ?> </td>
                     <td>
-                        <a class="mr-2 has-text-success" href="">
+                        <a class="mr-2 has-text-success" href="editar_cliente.php?id_cliente=<?= $cliente["codigo"] ?>">
                             Editar
                         </a>
                         <a class="ml-2 has-text-danger" href="excluir_cliente.php?id_cliente=<?= $cliente["codigo"] ?>">
