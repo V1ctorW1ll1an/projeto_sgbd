@@ -130,4 +130,15 @@ class Comercio
 
         return $venda;
     }
+    public function listar_vendas_cliente($id_cliente)
+    {
+        $q = $this->mysql->prepare("SELECT * FROM vendas WHERE codigo_cliente=?");
+        $q->bind_param('s', $id_cliente);
+
+        $q->execute();
+
+        $vendas = $q->get_result()->fetch_assoc();
+
+        return $vendas;
+    }
 }
