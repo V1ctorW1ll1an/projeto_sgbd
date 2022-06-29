@@ -137,7 +137,7 @@ class Comercio
 
         $q->execute();
 
-        $vendas = $q->get_result()->fetch_assoc();
+        $vendas = $q->get_result()->fetch_all(MYSQLI_ASSOC);
 
         return $vendas;
     }
